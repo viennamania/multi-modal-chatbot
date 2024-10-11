@@ -128,9 +128,7 @@ export default function Home() {
       <AnimatePresence>
         {isDragging && (
           <motion.div
-            className="fixed pointer-events-none dark:bg-zinc-900/90 h-dvh w-dvw z-10
-              justify-center items-center
-              flex flex-col gap-1 bg-zinc-100/90"
+            className="fixed pointer-events-none dark:bg-zinc-900/90 h-dvh w-dvw z-10 flex flex-row justify-center items-center flex flex-col gap-1 bg-zinc-100/90"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -200,8 +198,34 @@ export default function Home() {
 
         
         ) : (
+
+          
           <motion.div className="h-[350px] px-4 w-full md:w-[500px] md:px-0 pt-20">
-            <></>
+            <div className="border rounded-lg p-6 flex flex-col gap-4 text-zinc-500 text-sm dark:text-zinc-400 dark:border-zinc-700">
+              <p className="flex flex-row justify-center gap-4 items-center text-zinc-900 dark:text-zinc-50">
+                <VercelIcon />
+                <span>+</span>
+                <AttachmentIcon />
+              </p>
+              <p>
+                The useChat hook supports sending attachments along with
+                messages as well as rendering previews on the client. This can
+                be useful for building applications that involve sending images,
+                files, and other media content to the AI provider.
+              </p>
+              <p>
+                {" "}
+                Learn more about the{" "}
+                <Link
+                  className="text-blue-500 dark:text-blue-400"
+                  href="https://sdk.vercel.ai/docs/ai-sdk-ui/chatbot#attachments-experimental"
+                  target="_blank"
+                >
+                  useChat{" "}
+                </Link>
+                hook from Vercel AI SDK.
+              </p>
+            </div>
           </motion.div>
         )}
 
@@ -254,50 +278,15 @@ export default function Home() {
             )}
           </AnimatePresence>
 
-          <div className=" flex flex-row gap-2">
-            <input
-              ref={inputRef}
-              className="bg-zinc-100 rounded-md px-2 py-1.5 w-full outline-none dark:bg-zinc-700 text-zinc-800 dark:text-zinc-300 md:max-w-[500px] max-w-[calc(100dvw-32px)]"
-              placeholder="Send a message..."
-              value={input}
-              onChange={handleInputChange}
-              onPaste={handlePaste}
-            />
-            <button
-              type="submit"
-              className="bg-zinc-500 rounded-md px-3 py-1.5 text-white dark:bg-zinc-600"
-            >
-              Send
-            </button>
-
-            <div className="flex flex-row gap-2">
-              <button
-                type="button"
-                onClick={() => inputRef.current?.click()}
-                className="bg-zinc-500 rounded-md px-3 py-1.5 text-white dark:bg-zinc-600"
-              >
-                <AttachmentIcon />
-              </button>
-              <input
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                style={{ display: "none" }}
-                onChange={(event) => {
-                  const files = event.target.files;
-                  if (files) {
-                    setFiles(files);
-                  }
-                }}
-              />
-            </div>
-
-          </div>
-
-  
-
+          <input
+            ref={inputRef}
+            className="bg-zinc-100 rounded-md px-2 py-1.5 w-full outline-none dark:bg-zinc-700 text-zinc-800 dark:text-zinc-300 md:max-w-[500px] max-w-[calc(100dvw-32px)]"
+            placeholder="Send a message..."
+            value={input}
+            onChange={handleInputChange}
+            onPaste={handlePaste}
+          />
         </form>
-
       </div>
     </div>
   );
